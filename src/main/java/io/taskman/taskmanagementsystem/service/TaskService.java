@@ -18,24 +18,55 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
+    /**
+     * Retrieves a list of all tasks.
+     *
+     * @return A list of Task objects representing all tasks.
+     */
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 
+    /**
+     * Creates a new task and saves it to the database.
+     *
+     * @param task The task object to be created.
+     * @return The newly created task object.
+     */
     public Task createTask(Task task) {
         return taskRepository.save(task);
     }
 
+    /**
+     * Retrieves a task by its ID.
+     *
+     * @param id The ID of the task to retrieve.
+     * @return The Task object with the specified ID.
+     * @throws RuntimeException if task with the specified ID is not found.
+     */
     public Task getTaskById(long id) {
         return taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
     }
 
+    /**
+     * Deletes a task by its ID.
+     *
+     * @param id The ID of the task to delete.
+     */
     public void deleteTaskById(long id) {
         Task task = getTaskById(id);
         taskRepository.delete(task);
     }
 
+    /**
+     * Updates a task with the given ID.
+     *
+     * @param id          The ID of the task to update.
+     * @param taskDetails The updated task details.
+     * @return The updated task object.
+     * @throws RuntimeException if task with the specified ID is not found.
+     */
     public Task updateTask(Long id, Task taskDetails) {
         Task task = getTaskById(id);
         task.setTitle(taskDetails.getTitle());
@@ -44,4 +75,5 @@ public class TaskService {
         task.setStatus(taskDetails.getStatus());
         return taskRepository.save(task);
     }
+
 }

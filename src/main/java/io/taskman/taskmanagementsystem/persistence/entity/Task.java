@@ -42,6 +42,13 @@ public class Task {
     public Task() {
     }
 
+    public Task(String title, String description, LocalDateTime dueDate, TaskStatus status) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.status = status;
+    }
+
     public enum TaskStatus {
         TODO, IN_PROGRESS, DONE
     }

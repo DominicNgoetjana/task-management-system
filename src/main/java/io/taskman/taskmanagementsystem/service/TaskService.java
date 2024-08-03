@@ -38,10 +38,10 @@ public class TaskService {
 
     public Task updateTask(Long id, Task taskDetails) {
         Task task = getTaskById(id);
-        task.setTitle(task.getTitle());
-        task.setDescription(task.getDescription());
-        task.setDueDate(task.getDueDate());
-        task.setStatus(task.getStatus());
+        task.setTitle(taskDetails.getTitle());
+        task.setDescription(taskDetails.getDescription());
+        task.setDueDate(taskDetails.getDueDate());
+        task.setStatus(taskDetails.getStatus());
         return taskRepository.save(task);
     }
 }

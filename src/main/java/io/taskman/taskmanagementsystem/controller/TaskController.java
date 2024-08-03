@@ -2,6 +2,7 @@ package io.taskman.taskmanagementsystem.controller;
 
 import io.taskman.taskmanagementsystem.persistence.entity.Task;
 import io.taskman.taskmanagementsystem.service.TaskService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +18,13 @@ import java.util.List;
 /**
  * The TaskController class handles the API endpoints for tasks.
  */
+@Log4j2
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
 
     private final TaskService taskService;
-    
+
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
@@ -34,6 +36,7 @@ public class TaskController {
      */
     @GetMapping
     public List<Task> getAllTasks() {
+        log.info("Fetching all tasks");
         return taskService.getAllTasks();
     }
 
@@ -45,6 +48,7 @@ public class TaskController {
      */
     @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
+        log.info("Creating a task with title: {}", task.getTitle());
         Task createdTask = taskService.createTask(task);
         return ResponseEntity.ok(createdTask);
     }
@@ -57,6 +61,7 @@ public class TaskController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Task> getTaskById(@PathVariable long id) {
+        log.info("Retrieving a task with id: {}", id);
         Task task = taskService.getTaskById(id);
         return ResponseEntity.ok(task);
     }
@@ -70,6 +75,7 @@ public class TaskController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable long id, @RequestBody Task taskDetails) {
+        log.info("Updating a task with id: {}", id);
         Task updatedTask = taskService.updateTask(id, taskDetails);
         return ResponseEntity.ok(updatedTask);
     }
@@ -82,6 +88,7 @@ public class TaskController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Task> deleteTask(@PathVariable long id) {
+        log.info("Deleting a task with id: {}", id);
         taskService.deleteTaskById(id);
         return ResponseEntity.ok().build();
     }

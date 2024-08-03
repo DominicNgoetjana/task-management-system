@@ -52,4 +52,15 @@ public class Task {
     public enum TaskStatus {
         TODO, IN_PROGRESS, DONE
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", dueDate=" + dueDate +
+                ", status=" + status +
+                '}';
+    }
 }

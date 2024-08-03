@@ -2,6 +2,7 @@ package io.taskman.taskmanagementsystem.service;
 
 import io.taskman.taskmanagementsystem.persistence.entity.Task;
 import io.taskman.taskmanagementsystem.persistence.repo.TaskRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Created by Dominic Ngoetjana on 2024/08/03.
  */
+@Log4j2
 @Service
 public class TaskService {
 
@@ -24,6 +26,7 @@ public class TaskService {
      * @return A list of Task objects representing all tasks.
      */
     public List<Task> getAllTasks() {
+        log.debug("Service::get all tasks");
         return taskRepository.findAll();
     }
 
@@ -45,6 +48,7 @@ public class TaskService {
      * @throws RuntimeException if task with the specified ID is not found.
      */
     public Task getTaskById(long id) {
+        log.debug("Service::get by Id invoked with id {}", id);
         return taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
     }
@@ -55,6 +59,7 @@ public class TaskService {
      * @param id The ID of the task to delete.
      */
     public void deleteTaskById(long id) {
+        log.debug("Service::delete invoked with id {}", id);
         Task task = getTaskById(id);
         taskRepository.delete(task);
     }
@@ -68,6 +73,7 @@ public class TaskService {
      * @throws RuntimeException if task with the specified ID is not found.
      */
     public Task updateTask(Long id, Task taskDetails) {
+        log.debug("Service::update invoked with id {} and {}", id, taskDetails);
         Task task = getTaskById(id);
         task.setTitle(taskDetails.getTitle());
         task.setDescription(taskDetails.getDescription());
